@@ -1,0 +1,15 @@
+---
+- hosts: Group1
+  gather_facts: False
+  tasks:
+   - name: install wireshark
+     yum: 
+      name: wireshark
+      state: present
+
+   - name: install iperf
+     yum:
+      name: iperf3
+      state: present
+
+...

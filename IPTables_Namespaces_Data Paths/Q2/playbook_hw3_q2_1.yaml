@@ -1,0 +1,163 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+   - name: Ansible create file if it doesn't exist example
+     file:
+       path: "/home/ece792/q2-1-1.xml"
+       state: touch
+   - name: add a block
+     blockinfile:
+       dest: /home/ece792/q2-1-1.xml
+       marker: ""
+       block: |
+         <network>
+           <name>q2-1-1</name>
+           <forward mode='bridge'/>
+           <bridge name='q2-1-1'/>
+           <virtualport type='openvswitch'/>
+         </network>
+
+   - name: Ansible create file if it doesn't exist example
+     file:
+       path: "/home/ece792/q2-1-2.xml"
+       state: touch
+   - name: add a block
+     blockinfile:
+       dest: /home/ece792/q2-1-2.xml
+       marker: ""
+       block: |
+         <network>
+           <name>q2-1-2</name>
+           <forward mode='bridge'/>
+           <bridge name='q2-1-2'/>
+           <virtualport type='openvswitch'/>
+         </network>   
+
+   - name: Ansible create file if it doesn't exist example
+     file:
+       path: "/home/ece792/q2-1-3.xml"
+       state: touch
+   - name: add a block
+     blockinfile:
+       dest: /home/ece792/q2-1-3.xml
+       marker: ""
+       block: |
+         <network>
+           <name>q2-1-3</name>
+           <forward mode='bridge'/>
+           <bridge name='q2-1-3'/>
+           <virtualport type='openvswitch'/>
+         </network>
+
+   - name: Ansible create file if it doesn't exist example
+     file:
+       path: "/home/ece792/q2-1-4.xml"
+       state: touch
+   - name: add a block
+     blockinfile:
+       dest: /home/ece792/q2-1-4.xml
+       marker: ""
+       block: | 
+         <network>
+           <name>q2-1-4</name>
+           <forward mode='bridge'/>
+           <bridge name='q2-1-4'/>
+           <virtualport type='openvswitch'/>
+         </network>
+
+#code to define, start, auto start network q2-1-1.   
+   - name: define network-1
+     virt_net:
+      command: define
+      name: q2-1-1
+      xml: "{{ lookup('template', 'q2-1-1.xml') }}"
+
+   - name: start the network-1
+     virt_net:
+      command: create
+      name: q2-1-1
+
+   - name: auto start the network
+     virt_net:
+      autostart: "yes"
+      name: q2-1-1
+
+   - name: creating ovsbridge-1
+     openvswitch_bridge:
+       bridge: q2-1-1
+       state: present
+   - name: up the ovs-bridge
+     command: ip link set dev q2-1-1 up 
+
+#code to define, start, auto start network q2-1-2.   
+   - name: define network-2
+     virt_net:
+      command: define
+      name: q2-1-2
+      xml: "{{ lookup('template', 'q2-1-2.xml') }}"
+
+   - name: start the network-2
+     virt_net:
+      command: create
+      name: q2-1-2
+
+   - name: auto start the network-2
+     virt_net:
+      autostart: "yes"
+      name: q2-1-2
+
+   - name: creating ovsbridge-2
+     openvswitch_bridge:
+       bridge: q2-1-2
+       state: present
+   - name: up the ovs-bridge-2
+     command: ip link set dev q2-1-2 up
+
+#code to define, start, auto start network q2-1-3.   
+   - name: define network-3
+     virt_net:
+      command: define
+      name: q2-1-3
+      xml: "{{ lookup('template', 'q2-1-3.xml') }}"
+
+   - name: start the network-3
+     virt_net:
+      command: create
+      name: q2-1-3
+
+   - name: auto start the network-3
+     virt_net:
+      autostart: "yes"
+      name: q2-1-3
+
+   - name: creating ovsbridge-3
+     openvswitch_bridge:
+       bridge: q2-1-3
+       state: present
+   - name: up the ovs-bridge-3
+     command: ip link set dev q2-1-3 up
+
+
+#code to define, start, auto start network q2-1-4.   
+   - name: define network-4
+     virt_net:
+      command: define
+      name: q2-1-4
+      xml: "{{ lookup('template', 'q2-1-4.xml') }}"
+
+   - name: start the network-4
+     virt_net:
+      command: create
+      name: q2-1-4
+
+   - name: auto start the network-4
+     virt_net:
+      autostart: "yes"
+      name: q2-1-4
+
+   - name: creating ovsbridge-4
+     openvswitch_bridge:
+       bridge: q2-1-4
+       state: present
+   - name: up the ovs-bridge-4
+     command: ip link set dev q2-1-4 up

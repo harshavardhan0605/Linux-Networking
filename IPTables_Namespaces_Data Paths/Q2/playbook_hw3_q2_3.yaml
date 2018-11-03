@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+   - name: Q4-VM1 Installation
+     command: sudo virt-install -n HW3-Q2-VM5 -r 2048 --vcpu=2 --cpu host --disk path=/var/lib/libvirt/images/HW3-Q2-VM5.img,size=12 --network network=q2-1-1 --network network=q2-1-2 -c /home/ece792/CentOS-7-x86_64-Minimal-1804.iso.1 -v
+   - name: Q4-VM2 Installation
+     command: sudo virt-install -n HW3-Q2-VM6 -r 2048 --vcpu=2 --cpu host --disk path=/var/lib/libvirt/images/HW3-Q2-VM6.img,size=12 --network network=q2-1-1 --network network=q2-1-2 -c /home/ece792/CentOS-7-x86_64-Minimal-1804.iso.1 -v
+
+   - name: run another yaml file to install iperf, wireshark
+     command: ansible-playbook playbook_app.yaml
+...

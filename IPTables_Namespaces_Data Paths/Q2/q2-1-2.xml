@@ -1,0 +1,7 @@
+
+<network>
+  <name>q2-1-2</name>
+  <forward mode='bridge'/>
+  <bridge name='q2-1-2'/>
+  <virtualport type='openvswitch'/>
+</network>   

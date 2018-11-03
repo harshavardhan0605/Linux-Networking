@@ -1,0 +1,18 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+  # - name: assign subnet address to the bridge-1
+  #   command: ip addr add 192.168.170.5/24 dev q2-1-1
+   - name: assign subnet address to the bridge-1
+     command: ip addr add 192.168.171.1/24 dev q2-1-1
+   - name: assign subnet address to the bridge-1
+     command: ip addr add 192.168.172.1/24 dev q2-1-3
+   - name: assign subnet address to the bridge-1
+     command: ip addr add 192.168.173.1/24 dev q2-1-4
+
+   - name: install dhcp at q2-1-1 interface so that bridge goes to dhcp mode
+     command: sudo dnsmasq --interface=q2-1-1 --except-interface=lo --bind-interface --dhcp-range=192.168.171.2,192.168.171.250,12h
+
+   - name: NAT rules at q2-1-1 bridge
+     command: iptables -t nat -A POSTROUTING -s 192.168.171.1 -o ens3 -j MASQUERADE
+     
